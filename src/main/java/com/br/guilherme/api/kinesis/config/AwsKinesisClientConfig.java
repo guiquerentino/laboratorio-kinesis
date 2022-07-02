@@ -10,8 +10,8 @@ public class AwsKinesisClientConfig {
 	public static final String AWS_SECRET_KEY = "aws.secretKey";
 
 	static {
-		System.setProperty(AWS_ACCESS_KEY, "AKIA4LIUBQTS2OISJUCV");
-		System.setProperty(AWS_SECRET_KEY, "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");
+		System.setProperty(AWS_ACCESS_KEY, "AKIAXFU6OHZF47HGRZYU");
+		System.setProperty(AWS_SECRET_KEY, "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");
 	}
 
 	public static AmazonKinesis getKinesisClient() {
