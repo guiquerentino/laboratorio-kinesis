@@ -1,21 +1,8 @@
 package com.br.guilherme.api.kinesis;
 
-import java.util.UUID;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import com.amazonaws.util.CredentialUtils;
 import com.br.guilherme.api.kinesis.consumer.SchedulerBuilder;
-import com.br.guilherme.api.kinesis.consumer.ScoreRecordProcessorFactory;
-
-import software.amazon.awssdk.auth.credentials.SystemPropertyCredentialsProvider;
-import software.amazon.awssdk.regions.Region;
-import software.amazon.awssdk.services.cloudwatch.CloudWatchAsyncClient;
-import software.amazon.awssdk.services.dynamodb.DynamoDbAsyncClient;
-import software.amazon.awssdk.services.kinesis.KinesisAsyncClient;
-import software.amazon.kinesis.common.ConfigsBuilder;
-import software.amazon.kinesis.common.KinesisClientUtil;
 import software.amazon.kinesis.coordinator.Scheduler;
 
 @SpringBootApplication

@@ -62,7 +62,7 @@ public class KinesisProducerService {
 		try {
 			putRecordsRequest.setRecords(putRecordsRequestEntryList);
 			PutRecordsResult putRecordsResult = kinesisClient.putRecords(putRecordsRequest);
-			System.out.println("Put Result" + putRecordsResult);
+			System.out.println("Records enviados: " + putRecordsResult);
 		} catch (AmazonClientException ex) {
 			System.out.println("Deu ruim: " + ex);
 		}
