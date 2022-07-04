@@ -1,5 +1,6 @@
 package com.br.guilherme.api.kinesis;
 
+import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +22,10 @@ public class TesteController {
 	private KinesisProducerService service;
 
 	@PostMapping(path = "/envio")
-	public ResponseEntity<Object> enviaDadosStream(@RequestBody RequestSolicitacaoScorePOST mensagem) throws InterruptedException {
+	public ResponseEntity<Object> enviaDadosStream(@RequestBody RequestSolicitacaoScorePOST mensagem) throws InterruptedException, UnsupportedEncodingException {
 		
 		service.enviaRecord(mensagem);
 		
-//		Thread thread = new Thread();
-//		thread.sleep(1000);
-//		
-//		service.recebeRecords(mensagem.getSolicitacaoScore().size());
-//		
 		return new ResponseEntity<>(mensagem, HttpStatus.OK);
 	}
 }
