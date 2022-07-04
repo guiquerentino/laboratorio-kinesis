@@ -2,7 +2,8 @@ package com.br.guilherme.api.kinesis.consumer;
 
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import software.amazon.awssdk.auth.credentials.SystemPropertyCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -14,21 +15,9 @@ import software.amazon.kinesis.common.KinesisClientUtil;
 import software.amazon.kinesis.coordinator.Scheduler;
 
 public class SchedulerBuilder {
-
-	@Value("${aws.config.appname}")
-	public static String appName= "PDDKinesis";
-
-	@Value("${aws.config.streamname}")
-	public static String streamName = "PDD_Mock_Score";
 	
-	@Value("${aws.config.accessKey}")
-	public static String accessKey = "AKIAXFU6OHZF47HGRZYU";
-
-	@Value("${aws.config.secretKey}")
-	public static String secretKey = "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";
-
-	public static Scheduler buildScheduler() {
-
+	public Scheduler buildScheduler(String accessKey, String secretKey) {
+				
 		System.setProperty("aws.accessKeyId", accessKey);
 		System.setProperty("aws.secretAccessKey", secretKey);
 
@@ -38,7 +27,7 @@ public class SchedulerBuilder {
 		SystemPropertyCredentialsProvider credentialsProvider = SystemPropertyCredentialsProvider.create();
 
 		KinesisAsyncClient kinesisClient = KinesisClientUtil
-				.createKinesisAsyncClient(KinesisAsyncClient.builder().region(region));
+				.createKinesisAsyncClient(KinesisAsyncClient.builder().region(region).credentialsProvider(credentialsProvider));
 
 		DynamoDbAsyncClient dynamoClient = DynamoDbAsyncClient.builder().region(region).build();
 
@@ -46,7 +35,7 @@ public class SchedulerBuilder {
 
 		ScoreRecordProcessorFactory scoreProcessorFactory = new ScoreRecordProcessorFactory();
 
-		ConfigsBuilder configsBuilder = new ConfigsBuilder(streamName, appName, kinesisClient, dynamoClient, cwClient,
+		ConfigsBuilder configsBuilder = new ConfigsBuilder("PDD_Mock_Score", "PDDKinesis", kinesisClient, dynamoClient, cwClient,
 				schedulerId, scoreProcessorFactory);
 
 		Scheduler scheduler = new Scheduler(configsBuilder.checkpointConfig(), configsBuilder.coordinatorConfig(),

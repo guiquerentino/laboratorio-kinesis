@@ -18,9 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class KinesisProducerService {
 	
+	@Autowired
+	private AwsKinesisClientConfig config;
+	
 	public void enviaRecord(RequestSolicitacaoScorePOST mensagem) throws UnsupportedEncodingException {
 
-		KinesisProducer kinesis = new KinesisProducer(AwsKinesisClientConfig.getKinesisClientConfig());
+		KinesisProducer kinesis = new KinesisProducer(config.getKinesisClientConfig());
 
 		for (SolicitacaoScoreDTO req : mensagem.getSolicitacaoScore()) {
 
